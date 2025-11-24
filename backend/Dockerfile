@@ -6,14 +6,14 @@ WORKDIR /app
 COPY pom.xml .
 COPY src ./src
 
-# Package the application
+# Build the application
 RUN mvn -q -e -DskipTests clean package
 
 # ==== RUN STAGE ====
 FROM eclipse-temurin:17-jdk
 WORKDIR /app
 
-# Copy the built jar file
+# Copy the built JAR
 COPY --from=build /app/target/*.jar app.jar
 
 EXPOSE 8081
