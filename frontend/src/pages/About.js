@@ -81,32 +81,32 @@ const styles = {
 
 const developers = [
   {
-    name: 'Chinmay Paranjape',
-    image: 'images/chinmay.png', // Corrected path to actual image
-    description: 'Student at KLE Technological University',
+    name: 'Jaya Lova Raju',
+    image: 'images/raj.jpeg', // Corrected path to actual image
+    description: 'Student at Jawaharlal Nehru Technological University',
     socialMedia: {
-      linkedin: 'https://www.linkedin.com/in/chinmay-paranjape-b0b297230/',
-      github: 'https://github.com/Cap26803',
+      linkedin: 'https://www.linkedin.com/in/lovaraj02/',
+      github: 'https://github.com/Lovaraj02',
     },
   },
   {
-    name: 'Kushal Kaparatti',
-    image: 'images/kushal.png', // Corrected path to actual image
-    description: 'Student at KLE Technological University',
+    name: 'Padala Ganesh',
+    image: 'images/ganesh.jpeg', // Corrected path to actual image
+    description: 'Student at Jawaharlal Nehru Technological University',
     socialMedia: {
       linkedin: 'https://www.linkedin.com/in/kushal-kaparatti-3073a3252/',
       github: 'https://github.com/kushalkaparatti',
     },
   },
-  {
-    name: 'Prathamesh Chitnis',
-    image: 'images/chitnis.jpg', // Corrected path to actual image
-    description: 'Student at KLE Technological University',
-    socialMedia: {
-      linkedin: 'https://www.linkedin.com/in/prathamesh-chitnis-5b1578249/',
-      github: '#',
-    },
-  },
+  // {
+  //   name: 'Prathamesh Chitnis',
+  //   image: 'images/chitnis.jpg', // Corrected path to actual image
+  //   description: 'Student at KLE Technological University',
+  //   socialMedia: {
+  //     linkedin: 'https://www.linkedin.com/in/prathamesh-chitnis-5b1578249/',
+  //     github: '#',
+  //   },
+  // },
 ];
 
 function About() {

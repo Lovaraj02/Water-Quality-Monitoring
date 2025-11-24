@@ -9,9 +9,22 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/users")
+@CrossOrigin
 public class UserController {
+
     @Autowired
     private UserService userService;
+
+    // NEW Login API
+    @PostMapping("/login")
+    public String login(@RequestBody User user) {
+        User existingUser = userService.findByUsername(user.getUsername());
+
+        if (existingUser != null && existingUser.getPassword().equals(user.getPassword())) {
+            return "success";
+        }
+        return "fail";
+    }
 
     @PostMapping
     public User createUser(@RequestBody User user) {

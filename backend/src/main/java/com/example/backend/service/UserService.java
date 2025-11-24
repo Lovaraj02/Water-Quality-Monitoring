@@ -9,6 +9,7 @@ import java.util.List;
 
 @Service
 public class UserService {
+
     @Autowired
     private UserRepository userRepository;
 
@@ -32,5 +33,10 @@ public class UserService {
 
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
+    }
+
+    // NEW: Fetch user by username for login
+    public User findByUsername(String username) {
+        return userRepository.findByUsername(username);
     }
 }
