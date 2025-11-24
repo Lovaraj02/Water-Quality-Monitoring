@@ -126,7 +126,107 @@ body{margin:0;font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "
 
 
 /* ====== REGISTER / LOGIN / FORMS / COMPLAINT ====== */
-.form-box {
+
+/* Full screen center layout */
+.login-wrapper {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #d7eaff, #f5faff);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+/* Responsive card */
+.login-card {
+  width: 100%;
+  max-width: 420px;
+  background: #ffffff;
+  padding: 28px 32px;
+  border-radius: 14px;
+  box-shadow: 0 8px 26px rgba(0, 0, 0, 0.08);
+  animation: fadeIn 0.4s ease;
+}
+
+.login-card h2 {
+  text-align: center;
+  margin: 0 0 22px;
+  color: #222;
+  font-weight: 700;
+  font-size: 24px;
+}
+
+/* Input group structure */
+.input-group {
+  margin-bottom: 18px;
+}
+
+.input-group label {
+  font-size: 15px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 6px;
+  display: block;
+}
+
+/* Inputs modern style */
+.form-input {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 8px;
+  border: 1px solid #d0d0d0;
+  font-size: 15px;
+  transition: 0.15s;
+  background: #fafafa;
+}
+
+.form-input:focus {
+  border-color: #007bff;
+  background: #fff;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.15);
+}
+
+/* Placeholder color */
+.form-input::placeholder {
+  color: #888;
+  opacity: 1;
+}
+
+/* Button modern */
+.login-btn {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  background: #007bff;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  transition: 0.15s;
+}
+
+.login-btn:hover {
+  background: #0065d6;
+  transform: translateY(-1px);
+}
+
+.error-msg {
+  color: #c00;
+  margin-top: 10px;
+  text-align: center;
+  font-size: 14px;
+}
+
+/* Fade animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+
+/* .form-box {
   max-width:540px;
   margin:20px auto;
   padding:22px;
@@ -151,7 +251,7 @@ body{margin:0;font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "
 .form-input::placeholder {
   color: #999;
   opacity: 1;
-}
+} */
 
 
 

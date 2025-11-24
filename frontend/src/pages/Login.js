@@ -1,49 +1,128 @@
 // src/pages/Login.js
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './App.css';
+import './Login.css';
 
 const API_URL = 'https://water-quality-monitoring-da7r.onrender.com';
 
-export default function Login(){
-  const [form,setForm] = useState({ username:'', password:'' });
-  const [error,setError] = useState('');
+export default function Login() {
+  const [form, setForm] = useState({ username: '', password: '' });
+  const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const handleChange = e => setForm({...form,[e.target.name]: e.target.value});
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
 
-  const handleSubmit = async e => {
-    e.preventDefault(); setError('');
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError('');
+
     try {
       const res = await fetch(`${API_URL}/api/users/login`, {
-        method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(form)
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
       });
+
       const result = await res.text();
-      if(result === 'success') navigate('/Admin');
+      if (result === 'success') navigate('/Admin');
       else setError('Invalid username or password');
-    } catch (err){ setError('Server error. Try again.'); }
+    } catch {
+      setError('Server error. Try again.');
+    }
   };
 
   return (
-    <div className="form-box container">
-      <h1>Administrator Login</h1>
-      <form onSubmit={handleSubmit}>
-        <div className="form-row">
-          <label>Username</label>
-          <input className="form-input" name="username" placeholder='Admin' value={form.username} onChange={handleChange} required/>
-        </div>
+    <div className="login-wrapper">
+      <div className="login-card">
+        <h2>Administrator Login</h2>
+        <form onSubmit={handleSubmit}>
 
-        <div className="form-row">
-          <label>Password</label>
-          <input className="form-input" type="password" placeholder='Admin' name="password" value={form.password} onChange={handleChange} required/>
-        </div>
+          <div className="input-group">
+            <label>Username</label>
+            <input
+              className="form-input"
+              name="username"
+              placeholder="Admin"
+              value={form.username}
+              onChange={handleChange}
+              required
+            />
+          </div>
 
-        <button className="form-button" type="submit">Click here to Login</button>
-        {error && <p className="form-error">{error}</p>}
-      </form>
+          <div className="input-group">
+            <label>Password</label>
+            <input
+              className="form-input"
+              type="password"
+              placeholder="Admin"
+              name="password"
+              value={form.password}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <button className="login-btn" type="submit">
+            Login
+          </button>
+
+          {error && <p className="error-msg">{error}</p>}
+        </form>
+      </div>
     </div>
   );
 }
+
+
+
+// // src/pages/Login.js
+// import React, { useState } from 'react';
+// import { useNavigate } from 'react-router-dom';
+// import './App.css';
+
+// const API_URL = 'https://water-quality-monitoring-da7r.onrender.com';
+
+// export default function Login(){
+//   const [form,setForm] = useState({ username:'', password:'' });
+//   const [error,setError] = useState('');
+//   const navigate = useNavigate();
+
+//   const handleChange = e => setForm({...form,[e.target.name]: e.target.value});
+
+//   const handleSubmit = async e => {
+//     e.preventDefault(); setError('');
+//     try {
+//       const res = await fetch(`${API_URL}/api/users/login`, {
+//         method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(form)
+//       });
+//       const result = await res.text();
+//       if(result === 'success') navigate('/Admin');
+//       else setError('Invalid username or password');
+//     } catch (err){ setError('Server error. Try again.'); }
+//   };
+
+//   return (
+//     <div className="form-box container">
+//       <h1>Administrator Login</h1>
+//       <form onSubmit={handleSubmit}>
+//         <div className="form-row">
+//           <label>Username</label>
+//           <input className="form-input" name="username" placeholder='Admin' value={form.username} onChange={handleChange} required/>
+//         </div>
+
+//         <div className="form-row">
+//           <label>Password</label>
+//           <input className="form-input" type="password" placeholder='Admin' name="password" value={form.password} onChange={handleChange} required/>
+//         </div>
+
+//         <button className="form-button" type="submit">Click here to Login</button>
+//         {error && <p className="form-error">{error}</p>}
+//       </form>
+//     </div>
+//   );
+// }
 
 
 
