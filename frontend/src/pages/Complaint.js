@@ -1,5 +1,7 @@
-import axios from 'axios'; // Import Axios for making HTTP requests
+import axios from 'axios';
 import React, { useState } from 'react';
+
+const API_URL = 'https://water-quality-monitoring-da7r.onrender.com';
 
 const styles = {
   container: {
@@ -62,23 +64,20 @@ function Complaint() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setFormError('');
-    
-    // Basic form validation
+
     if (!formData.name || !formData.address || !formData.zone || !formData.complaintType) {
       setFormError('Please fill out all fields.');
       return;
     }
-    
+
     try {
-      // Log the form data to ensure it's correctly populated
-      console.log('Submitting form data:', formData);
-    
-      // Make POST request to backend
-      const response = await axios.post('http://localhost:8081/api/complaints/add', formData);
-    
+      const response = await axios.post(
+        `${API_URL}/api/complaints/add`,
+        formData
+      );
+
       console.log('Response:', response.data);
-    
-      // Reset form after successful submission
+
       setFormData({
         name: '',
         address: '',
@@ -87,12 +86,13 @@ function Complaint() {
         phoneNumber: '',
         emailAddress: '',
       });
+
       setFormError('Complaint submitted successfully!');
     } catch (error) {
-      console.error('Error submitting complaint:', error.message);
+      console.error('Error submitting complaint:', error);
       setFormError('Error submitting complaint. Please try again.');
     }
-  };  
+  };
 
   return (
     <div style={styles.container}>
@@ -109,6 +109,7 @@ function Complaint() {
             required
           />
         </div>
+
         <div style={styles.formGroup}>
           <label style={styles.label}>Address</label>
           <input
@@ -120,6 +121,7 @@ function Complaint() {
             required
           />
         </div>
+
         <div style={styles.formGroup}>
           <label style={styles.label}>Zone</label>
           <select
@@ -134,6 +136,7 @@ function Complaint() {
             <option value="South">South</option>
           </select>
         </div>
+
         <div style={styles.formGroup}>
           <label style={styles.label}>Complaint Type</label>
           <select
@@ -149,6 +152,7 @@ function Complaint() {
             <option value="Low Water Pressure">Low Water Pressure</option>
           </select>
         </div>
+
         <div style={styles.formGroup}>
           <label style={styles.label}>Phone Number</label>
           <input
@@ -160,6 +164,7 @@ function Complaint() {
             required
           />
         </div>
+
         <div style={styles.formGroup}>
           <label style={styles.label}>Email Address</label>
           <input
@@ -171,8 +176,12 @@ function Complaint() {
             required
           />
         </div>
+
         {formError && <p style={{ color: 'red' }}>{formError}</p>}
-        <button type="submit" style={styles.button}>Submit Complaint</button>
+
+        <button type="submit" style={styles.button}>
+          Submit Complaint
+        </button>
       </form>
     </div>
   );

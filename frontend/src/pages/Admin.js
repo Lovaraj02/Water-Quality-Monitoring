@@ -1,9 +1,11 @@
-import axios from 'axios'; // Import Axios for making HTTP requests
+import axios from 'axios';
 import { ArcElement, Chart, Legend, Tooltip } from 'chart.js';
 import React, { useEffect, useState } from 'react';
-import { Pie } from 'react-chartjs-2'; // Import Pie chart component
+import { Pie } from 'react-chartjs-2';
 
 Chart.register(ArcElement, Tooltip, Legend);
+
+const API_URL = 'https://water-quality-monitoring-da7r.onrender.com';
 
 const styles = {
     mainContainer: {
@@ -12,7 +14,7 @@ const styles = {
         alignItems: 'flex-start',
     },
     container: {
-        width: '65%', // Increased width of the complaints container
+        width: '65%',
         margin: '20px',
         padding: '20px',
         backgroundColor: '#f0f0f0',
@@ -20,8 +22,8 @@ const styles = {
         boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
     },
     chartContainer: {
-        width: '30%', // Adjusted width for better alignment
-        height: '350px', // Increased height to fit the chart
+        width: '30%',
+        height: '350px',
         margin: '20px',
         backgroundColor: '#fff',
         borderRadius: '15px',
@@ -30,7 +32,7 @@ const styles = {
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        padding: '30px', // Added padding for better spacing
+        padding: '30px',
         boxSizing: 'border-box',
     },
     complaintItem: {
@@ -76,56 +78,56 @@ function Admin() {
     const [statusCounts, setStatusCounts] = useState({ accepted: 0, rejected: 0, pending: 0 });
 
     useEffect(() => {
-        // Fetch complaints from the backend
-        const fetchComplaints = async () => {
-            try {
-                const response = await axios.get('http://localhost:8081/api/complaints/getAll');
-                setComplaints(response.data);
-                updateStatusCounts(response.data);
-            } catch (error) {
-                console.error('Error fetching complaints:', error);
-            }
-        };
-
         fetchComplaints();
     }, []);
 
+    const fetchComplaints = async () => {
+        try {
+            const response = await axios.get(
+                `${API_URL}/api/complaints/getAll`
+            );
+
+            setComplaints(response.data);
+            updateStatusCounts(response.data);
+        } catch (error) {
+            console.error('Error fetching complaints:', error);
+        }
+    };
+
     const handleAccept = (id) => {
+        updateComplaintStatus(id, 'accepted');
         setAcknowledgements({
             ...acknowledgements,
             [id]: `Complaint with ID ${id} accepted`,
         });
-        updateComplaintStatus(id, 'accepted');
-        console.log(`Complaint with ID ${id} accepted`);
     };
 
     const handleReject = (id) => {
+        updateComplaintStatus(id, 'rejected');
         setAcknowledgements({
             ...acknowledgements,
             [id]: `Complaint with ID ${id} rejected`,
         });
-        updateComplaintStatus(id, 'rejected');
-        console.log(`Complaint with ID ${id} rejected`);
     };
 
     const updateComplaintStatus = (id, status) => {
-        setComplaints((prevComplaints) =>
-            prevComplaints.map((complaint) =>
-                complaint.id === id ? { ...complaint, status } : complaint
-            )
-        );
-        updateStatusCounts(complaints.map((complaint) =>
+        const updatedList = complaints.map((complaint) =>
             complaint.id === id ? { ...complaint, status } : complaint
-        ));
+        );
+
+        setComplaints(updatedList);
+        updateStatusCounts(updatedList);
     };
 
     const updateStatusCounts = (complaints) => {
         const counts = { accepted: 0, rejected: 0, pending: 0 };
-        complaints.forEach((complaint) => {
-            if (complaint.status === 'accepted') counts.accepted++;
-            else if (complaint.status === 'rejected') counts.rejected++;
+
+        complaints.forEach((c) => {
+            if (c.status === 'accepted') counts.accepted++;
+            else if (c.status === 'rejected') counts.rejected++;
             else counts.pending++;
         });
+
         setStatusCounts(counts);
     };
 
@@ -145,15 +147,6 @@ function Admin() {
                 display: true,
                 position: 'top',
             },
-            tooltip: {
-                callbacks: {
-                    label: function (context) {
-                        const label = context.label || '';
-                        const value = context.raw || 0;
-                        return `${label}: ${value}`;
-                    },
-                },
-            },
         },
         maintainAspectRatio: false,
     };
@@ -162,6 +155,7 @@ function Admin() {
         <div style={styles.mainContainer}>
             <div style={styles.container}>
                 <h2>Complaint Dashboard</h2>
+
                 {complaints.map((complaint) => (
                     <div key={complaint.id} style={styles.complaintItem}>
                         <p style={styles.complaintType}>{complaint.complaintType}</p>
@@ -170,6 +164,7 @@ function Admin() {
                         <p>Zone: {complaint.zone}</p>
                         <p>Phone Number: {complaint.phoneNumber}</p>
                         <p>Email Address: {complaint.emailAddress}</p>
+
                         <div style={styles.buttonContainer}>
                             <button
                                 style={{ ...styles.button, ...styles.acceptButton }}
@@ -184,6 +179,7 @@ function Admin() {
                                 Reject
                             </button>
                         </div>
+
                         {acknowledgements[complaint.id] && (
                             <p style={styles.acknowledgement}>
                                 {acknowledgements[complaint.id]}
@@ -192,6 +188,7 @@ function Admin() {
                     </div>
                 ))}
             </div>
+
             <div style={styles.chartContainer}>
                 <h3>Complaints Status Overview</h3>
                 <Pie data={data} options={options} width={300} height={300} />

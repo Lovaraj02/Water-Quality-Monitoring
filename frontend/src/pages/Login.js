@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+const API_URL = 'https://water-quality-monitoring-da7r.onrender.com';
+
 const styles = {
     container: {
         maxWidth: '500px',
@@ -64,11 +66,14 @@ function Login() {
         setError("");
 
         try {
-            const res = await fetch("http://localhost:8081/api/users/login", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(formData),
-            });
+            const res = await fetch(
+                `${API_URL}/api/users/login`,
+                {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(formData),
+                }
+            );
 
             const result = await res.text();
 
