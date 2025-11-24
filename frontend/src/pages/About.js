@@ -94,8 +94,8 @@ const developers = [
     image: 'images/ganesh.jpeg', // Corrected path to actual image
     description: 'Student at Jawaharlal Nehru Technological University',
     socialMedia: {
-      linkedin: 'https://www.linkedin.com/in/kushal-kaparatti-3073a3252/',
-      github: 'https://github.com/kushalkaparatti',
+      linkedin: 'https://www.linkedin.com/in/ganesh-padala-/',
+      github: 'https://github.com/padala-ganesh',
     },
   },
   // {
