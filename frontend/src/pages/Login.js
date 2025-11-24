@@ -30,12 +30,12 @@ export default function Login(){
       <form onSubmit={handleSubmit}>
         <div className="form-row">
           <label>Username</label>
-          <input className="form-input" name="username" value={form.username} onChange={handleChange} required/>
+          <input className="form-input" name="username" placeholder='Admin' value={form.username} onChange={handleChange} required/>
         </div>
 
         <div className="form-row">
           <label>Password</label>
-          <input className="form-input" type="password" name="password" value={form.password} onChange={handleChange} required/>
+          <input className="form-input" type="password" placeholder='Admin' name="password" value={form.password} onChange={handleChange} required/>
         </div>
 
         <button className="form-button" type="submit">Click here to Login</button>
